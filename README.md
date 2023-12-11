@@ -10,6 +10,9 @@ This project comes from [Angular desde cero](https://www.udemy.com/course/angula
 
 ## You can find in this project:
 
-- [RXJS](https://rxjs.dev/) Reactive Extensions Library for JavaScript
 - [Lifecycle Hooks](https://angular.io/guide/lifecycle-hooks)
+- [RXJS](https://rxjs.dev/) Reactive Extensions Library for JavaScript:
+    - Observables
+    - Subscribe
+
 
