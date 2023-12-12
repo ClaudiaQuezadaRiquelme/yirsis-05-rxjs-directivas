@@ -1,4 +1,4 @@
-<h3>Subscribe deprecado (Angular <= 12)</h3>
+<h3>Subscribe deprecado (Angular <= 12) con setInterval</h3>
 <p>Mostrar el resultado del Observable: {{numSubscribeDeprecado}}</p>
 <p>Este mensaje aparece cuando hay un error: {{errorSubscribeDeprecado || '[No hay error por ahora]'}}</p>
 <p>this.complete: {{completeSubscribeDeprecado}}</p>
@@ -6,7 +6,7 @@
 <button (click)="toErrorSubscribeDeprecado()">Error</button>
 <button (click)="reiniciarSubscribeDeprecado()">Reiniciar</button>
 <hr>
-<h3>Subscribe actual (Angular >= 13)</h3>
+<h3>Subscribe actual (Angular >= 13) con setInterval</h3>
 <p>Mostrar el resultado del Observable: {{numSubscribeActual}}</p>
 <p>Este mensaje aparece cuando hay un error: {{errorSubscribeActual || '[No hay error por ahora]'}}</p>
 <p>this.complete: {{completeSubscribeActual}}</p>
@@ -14,3 +14,5 @@
 <button (click)="toErrorSubscribeActual()">Error</button>
 <button (click)="reiniciarSubscribeActual()">Reiniciar</button>
 <hr>
+<h3>RxJS interval</h3>
+<p>Resultado de RxJS interval: {{myActualInterval}}</p>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, interval } from 'rxjs';
 
 @Component({
   selector: 'app-reactive-container',
@@ -22,35 +22,18 @@ export class ReactiveContainerComponent implements OnInit {
   errorSA: boolean = false;
   reiniciarSA: boolean = false;
 
-  num: number = 0;
-  error: string = '';
-  complete: string = '';
+  myInterval: Observable<number> = interval(1500);
+  myActualInterval: number = 0;
 
   constructor() {
     this.executeMiObservableDeprecado();
     this.executeMiObservableActual();
-
-    const miObservable = new Observable<number>((observer)=> {
-      let numObservable = 0;
-      setInterval(()=> {
-        numObservable++;
-        observer.next(numObservable);
-        observer.complete();
-        if (numObservable === 3) {
-          observer.error('Número erróneo.');
-        }
-      }, 2000);
-    });
-
-    miObservable.subscribe({
-      next: (result)=> {},
-      error: (error)=> {},
-      complete: ()=> {}
-    });
   }
 
   ngOnInit(): void {
-      
+      this.myInterval.subscribe(value => {
+        this.myActualInterval = value;
+      });
   }
 
   executeMiObservableDeprecado() {
