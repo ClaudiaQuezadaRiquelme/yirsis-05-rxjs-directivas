@@ -15,5 +15,7 @@ This project comes from [Angular desde cero](https://www.udemy.com/course/angula
     - Observables
     - Subscribe
     - RxJS Interval
+    - RxJS Take
+    - RxJS Map
 
 
