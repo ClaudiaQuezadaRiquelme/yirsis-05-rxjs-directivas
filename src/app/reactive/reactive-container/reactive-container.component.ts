@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, interval } from 'rxjs';
+import { Observable, interval, filter } from 'rxjs';
 
 @Component({
   selector: 'app-reactive-container',
@@ -24,6 +24,7 @@ export class ReactiveContainerComponent implements OnInit {
 
   myInterval: Observable<number> = interval(1500);
   myActualInterval: number = 0;
+  myActualIntervalPipeFilter: number = 0;
 
   constructor() {
     this.executeMiObservableDeprecado();
@@ -32,7 +33,10 @@ export class ReactiveContainerComponent implements OnInit {
 
   ngOnInit(): void {
       this.myInterval.subscribe(value => {
-        this.myActualInterval = value;
+        this.myActualInterval = value; // se enviarán todos los números
+      });
+      this.myInterval.pipe(filter(value => value % 2 === 0)).subscribe(value => {
+        this.myActualIntervalPipeFilter = value; // se enviarán números pares
       });
   }
 

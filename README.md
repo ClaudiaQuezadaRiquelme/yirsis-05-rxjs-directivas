@@ -14,5 +14,6 @@ This project comes from [Angular desde cero](https://www.udemy.com/course/angula
 - [RXJS](https://rxjs.dev/) Reactive Extensions Library for JavaScript:
     - Observables
     - Subscribe
+    - RxJS Interval
 
 
