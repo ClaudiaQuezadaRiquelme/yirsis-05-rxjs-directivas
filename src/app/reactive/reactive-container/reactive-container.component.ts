@@ -36,6 +36,7 @@ export class ReactiveContainerComponent implements OnInit, OnDestroy {
 
   x: number = 0;
   y: number = 0;
+  eventObs: Subscription | null = null;
 
   constructor() {
     this.executeMiObservableDeprecado();
@@ -82,7 +83,11 @@ export class ReactiveContainerComponent implements OnInit, OnDestroy {
         }
       });
 
-    const obs = fromEvent(document.querySelector('#area')!, 'mousemove');
+    const obs = fromEvent<MouseEvent>(document.querySelector('#area')!, 'mousemove');
+    this. eventObs = obs.subscribe(event => {
+      this.x = event.clientX;
+      this.y = event.clientY;
+    });
   }
 
   ngOnDestroy() {
