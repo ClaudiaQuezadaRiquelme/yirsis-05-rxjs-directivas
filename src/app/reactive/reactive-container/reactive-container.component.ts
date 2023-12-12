@@ -95,6 +95,7 @@ export class ReactiveContainerComponent implements OnInit, OnDestroy {
     this.myIntervalSubscription!.unsubscribe();
     this.miObservableDeprecadoSubscription!.unsubscribe();
     this.miObservableActualSubscription!.unsubscribe();
+    this.eventObs!.unsubscribe();
   }
 
   executeMiObservableDeprecado() {
