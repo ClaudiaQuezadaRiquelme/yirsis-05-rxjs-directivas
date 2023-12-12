@@ -17,6 +17,8 @@ This project comes from [Angular desde cero](https://www.udemy.com/course/angula
     - RxJS Interval
     - RxJS Take
     - RxJS Map
+    - unsubscribe
+    - fromEvent
 
 
 

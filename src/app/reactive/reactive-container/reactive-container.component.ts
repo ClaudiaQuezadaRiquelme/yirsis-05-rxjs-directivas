@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, interval, filter, take, map, Subscription } from 'rxjs';
+import { Observable, interval, filter, take, map, Subscription, fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-reactive-container',
@@ -33,6 +33,9 @@ export class ReactiveContainerComponent implements OnInit, OnDestroy {
   myIntervalSubscription: Subscription | null = null; // para capturar la subscripción y aplicar unsubscribe
   miObservableDeprecadoSubscription: Subscription | null = null; // para capturar la subscripción y aplicar unsubscribe
   miObservableActualSubscription: Subscription | null = null; // para capturar la subscripción y aplicar unsubscribe
+
+  x: number = 0;
+  y: number = 0;
 
   constructor() {
     this.executeMiObservableDeprecado();
@@ -78,6 +81,8 @@ export class ReactiveContainerComponent implements OnInit, OnDestroy {
           this.myActualIntervalPipeMapFilterTakeMsge = `Estos son los primeros ${count} números pares.`
         }
       });
+
+    const obs = fromEvent(document.querySelector('#area')!, 'mousemove');
   }
 
   ngOnDestroy() {
