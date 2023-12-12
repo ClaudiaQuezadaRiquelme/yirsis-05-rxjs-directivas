@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, interval, filter, take, map } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, interval, filter, take, map, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-reactive-container',
   templateUrl: './reactive-container.component.html',
   styleUrls: ['./reactive-container.component.css']
 })
-export class ReactiveContainerComponent implements OnInit {
+export class ReactiveContainerComponent implements OnInit, OnDestroy {
 
   numSubscribeDeprecado: number = 0;
   errorSubscribeDeprecado: string = '';
@@ -30,6 +30,10 @@ export class ReactiveContainerComponent implements OnInit {
   myActualIntervalPipeMapFilterTake: number = 0;
   myActualIntervalPipeMapFilterTakeMsge: string = '';
 
+  myIntervalSubscription: Subscription | null = null; // para capturar la subscripción y aplicar unsubscribe
+  miObservableDeprecadoSubscription: Subscription | null = null; // para capturar la subscripción y aplicar unsubscribe
+  miObservableActualSubscription: Subscription | null = null; // para capturar la subscripción y aplicar unsubscribe
+
   constructor() {
     this.executeMiObservableDeprecado();
     this.executeMiObservableActual();
@@ -39,40 +43,48 @@ export class ReactiveContainerComponent implements OnInit {
     // Se recomienda integrar el pipe en el observable en lugar de en el subscribe por motivos de legibilidad,
     // pero el resultado es el mismo.
 
-      this.myInterval.subscribe(value => {
-        this.myActualInterval = value; // se enviarán todos los números
+    this.myIntervalSubscription = this.myInterval.subscribe(value => {
+      this.myActualInterval = value; // se enviarán todos los números
+    });
+    this.myInterval.pipe(filter(value => value % 2 === 0)).subscribe(value => {
+      this.myActualIntervalPipeFilter = value; // se enviarán números pares
+    });
+    this.myInterval
+      .pipe(
+        take(4),
+        filter(value => value % 2 === 0)
+      ).subscribe(value => {
+      this.myActualIntervalPipeTakeFilter = value; // limitar la ejecución del intervalo
+    });
+    this.myInterval
+      .pipe(
+        filter(value => value % 2 === 0),
+        take(4)
+      ).subscribe(value => {
+      this.myActualIntervalPipeFilterTake = value; // limitar la ejecución del intervalo
+    });
+    const count: number = 5;
+    this.myInterval
+      .pipe(
+        map(value => value+1),
+        filter(value => value % 2 === 0),
+        take(count)
+      )
+      .subscribe({
+        next: value => {
+          this.myActualIntervalPipeMapFilterTake = value;
+        },
+        complete: ()=> {
+          this.myActualIntervalPipeMapFilterTakeMsge = `Estos son los primeros ${count} números pares.`
+        }
       });
-      this.myInterval.pipe(filter(value => value % 2 === 0)).subscribe(value => {
-        this.myActualIntervalPipeFilter = value; // se enviarán números pares
-      });
-      this.myInterval
-        .pipe(
-          take(4),
-          filter(value => value % 2 === 0)
-        ).subscribe(value => {
-        this.myActualIntervalPipeTakeFilter = value; // limitar la ejecución del intervalo
-      });
-      this.myInterval
-        .pipe(
-          filter(value => value % 2 === 0),
-          take(4)
-        ).subscribe(value => {
-        this.myActualIntervalPipeFilterTake = value; // limitar la ejecución del intervalo
-      });
-      const count: number = 5;
-      this.myInterval
-        .pipe(
-          map(value => value+1),
-          filter(value => value % 2 === 0),
-          take(count)
-        ).subscribe({
-          next: value => {
-            this.myActualIntervalPipeMapFilterTake = value;
-          },
-          complete: ()=> {
-            this.myActualIntervalPipeMapFilterTakeMsge = `Estos son los primeros ${count} números pares.`
-          }
-        });
+  }
+
+  ngOnDestroy() {
+    console.log('Componente destruído');
+    this.myIntervalSubscription!.unsubscribe();
+    this.miObservableDeprecadoSubscription!.unsubscribe();
+    this.miObservableActualSubscription!.unsubscribe();
   }
 
   executeMiObservableDeprecado() {
@@ -95,7 +107,7 @@ export class ReactiveContainerComponent implements OnInit {
       }, 1500);
     });
 
-    miObservableDeprecado.subscribe(
+    this.miObservableDeprecadoSubscription = miObservableDeprecado.subscribe(
       (result)=> {
         this.numSubscribeDeprecado = result;
       },
@@ -154,7 +166,7 @@ export class ReactiveContainerComponent implements OnInit {
       }, 1500);
     });
 
-    miObservableActual.subscribe({
+    this.miObservableActualSubscription = miObservableActual.subscribe({
       next: (result)=> {
         this.numSubscribeActual = result;
       },
