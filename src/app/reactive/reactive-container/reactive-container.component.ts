@@ -15,14 +15,20 @@ export class ReactiveContainerComponent implements OnInit {
   errorSD: boolean = false;
   reiniciarSD: boolean = false;
 
+  numSubscribeActual: number = 0;
+  errorSubscribeActual: string = '';
+  completeSubscribeActual: string = '';
+  completarSA: boolean = false;
+  errorSA: boolean = false;
+  reiniciarSA: boolean = false;
+
   num: number = 0;
   error: string = '';
   complete: string = '';
 
   constructor() {
     this.executeMiObservableDeprecado();
-    
-
+    this.executeMiObservableActual();
 
     const miObservable = new Observable<number>((observer)=> {
       let numObservable = 0;
@@ -36,19 +42,11 @@ export class ReactiveContainerComponent implements OnInit {
       }, 2000);
     });
 
-    miObservable.subscribe(
-      (result)=> {
-        this.num = result;
-      },
-      (error) => {
-        console.log('error:', error);
-        
-        this.error = error;
-      },
-      () => { // complete
-        this.complete = `Completado con num: ${this.num}`;
-      }
-    );
+    miObservable.subscribe({
+      next: (result)=> {},
+      error: (error)=> {},
+      complete: ()=> {}
+    });
   }
 
   ngOnInit(): void {
@@ -80,8 +78,6 @@ export class ReactiveContainerComponent implements OnInit {
         this.numSubscribeDeprecado = result;
       },
       (error) => {
-        console.log('error:', error);
-        
         this.errorSubscribeDeprecado = error;
       },
       () => { // complete
@@ -114,5 +110,63 @@ export class ReactiveContainerComponent implements OnInit {
 
   toErrorSubscribeDeprecado() {
     this.errorSD = true;
+  }
+
+  executeMiObservableActual() {
+    const miObservableActual = new Observable<number>((observer)=> {
+      let numObservableActual = 0;
+      setInterval(()=> {
+        if (this.reiniciarSA) {
+          numObservableActual = 0;
+          this.reiniciarSA = false;
+        }
+        numObservableActual++;
+        observer.next(numObservableActual);
+        
+        if (this.completarSA) {
+          observer.complete();
+        }
+        if (this.errorSA) {
+          observer.error('Número erróneo.');
+        }
+      }, 1500);
+    });
+
+    miObservableActual.subscribe({
+      next: (result)=> {
+        this.numSubscribeActual = result;
+      },
+      error: (error)=> {
+        this.errorSubscribeActual = error;
+      },
+      complete: ()=> {
+        this.completeSubscribeActual = `Completado con num: ${this.numSubscribeActual}`;
+      }
+    });
+  }
+
+  variablesSubscribeActualReiniciar() {
+    this.completarSA = false;
+    this.errorSA = false;
+    this.errorSubscribeActual = '';
+    this.completeSubscribeActual = '';
+  }
+
+  reiniciarSubscribeActual() {
+    this.reiniciarSA = true;
+    if (this.errorSA || this.completarSA) { // executeAgainSA
+      this.numSubscribeActual = 0;
+      this.reiniciarSA = false;
+      this.variablesSubscribeActualReiniciar();
+      this.executeMiObservableActual();
+    }
+  }
+
+  toCompleteSubscribeActual() {
+    this.completarSA = true;
+  }
+
+  toErrorSubscribeActual() {
+    this.errorSA = true;
   }
 }

@@ -5,3 +5,12 @@
 <button (click)="toCompleteSubscribeDeprecado()">Complete</button>
 <button (click)="toErrorSubscribeDeprecado()">Error</button>
 <button (click)="reiniciarSubscribeDeprecado()">Reiniciar</button>
+<hr>
+<h3>Subscribe actual (Angular >= 13)</h3>
+<p>Mostrar el resultado del Observable: {{numSubscribeActual}}</p>
+<p>Este mensaje aparece cuando hay un error: {{errorSubscribeActual || '[No hay error por ahora]'}}</p>
+<p>this.complete: {{completeSubscribeActual}}</p>
+<button (click)="toCompleteSubscribeActual()">Complete</button>
+<button (click)="toErrorSubscribeActual()">Error</button>
+<button (click)="reiniciarSubscribeActual()">Reiniciar</button>
+<hr>
