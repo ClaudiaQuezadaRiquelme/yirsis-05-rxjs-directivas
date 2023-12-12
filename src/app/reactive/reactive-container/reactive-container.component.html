@@ -1,3 +1,7 @@
-<p>Mostrar el resultado de un Observable: {{num}}</p>
-<p>Este mensaje aparece cuando hay un error: {{error || '[No hay error por ahora]'}}</p>
-<p>this.complete: {{complete}}</p>
+<h3>Subscribe deprecado (Angular <= 12)</h3>
+<p>Mostrar el resultado del Observable: {{numSubscribeDeprecado}}</p>
+<p>Este mensaje aparece cuando hay un error: {{errorSubscribeDeprecado || '[No hay error por ahora]'}}</p>
+<p>this.complete: {{completeSubscribeDeprecado}}</p>
+<button (click)="toCompleteSubscribeDeprecado()">Complete</button>
+<button (click)="toErrorSubscribeDeprecado()">Error</button>
+<button (click)="reiniciarSubscribeDeprecado()">Reiniciar</button>
