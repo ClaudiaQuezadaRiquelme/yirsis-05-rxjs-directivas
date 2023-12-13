@@ -6,8 +6,8 @@ describe('ReactiveContainerComponent', () => {
   let component: ReactiveContainerComponent;
   let fixture: ComponentFixture<ReactiveContainerComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ReactiveContainerComponent]
     });
     fixture = TestBed.createComponent(ReactiveContainerComponent);

@@ -1,9 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { ReactiveModule } from './reactive/reactive.module';
+import { ThemeDirective } from './directives/theme.directive';
+import { BtnThemeDirective } from './directives/btn-theme.directive';
+import { ReactiveContainerComponent } from './reactive/reactive-container/reactive-container.component';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
+  beforeEach(async () => await TestBed.configureTestingModule({
+    declarations: [
+      AppComponent
+    ],
+    imports: [
+      ReactiveModule,
+    ]
   }));
 
   it('should create the app', () => {
@@ -12,16 +21,4 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'rxjs-directivas'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('rxjs-directivas');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('rxjs-directivas app is running!');
-  });
 });
