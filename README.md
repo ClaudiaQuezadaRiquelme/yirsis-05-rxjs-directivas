@@ -19,6 +19,8 @@ This project comes from [Angular desde cero](https://www.udemy.com/course/angula
     - RxJS Map
     - unsubscribe
     - fromEvent
+    - directives
+    - dynamic directives
 
 
 
