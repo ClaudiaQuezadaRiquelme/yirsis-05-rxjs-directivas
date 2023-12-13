@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { ReactiveModule } from './reactive/reactive.module';
+import { ThemeDirective } from './directives/theme.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ThemeDirective,
   ],
   imports: [
     BrowserModule,
