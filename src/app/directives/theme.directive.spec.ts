@@ -30,6 +30,6 @@ describe('ThemeDirective', () => {
     const elem: HTMLDivElement = fixture.debugElement.query(By.directive(ThemeDirective)).nativeElement;
     expect(elem).toBeTruthy();
     expect(elem.style.backgroundColor).toEqual('rgb(51, 51, 51)'); // #333
-    expect(elem.style.color).toEqual('snow'); // #333
+    expect(elem.style.color).toEqual('snow');
   });
 });
