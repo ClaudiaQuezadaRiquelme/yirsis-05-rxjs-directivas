@@ -6,7 +6,7 @@ This project comes from [Angular desde cero](https://www.udemy.com/course/angula
 
 ## Deploy
 
-[https://yirsis-05-rxjs-directivas.netlify.app/](https://yirsis-04-rxjs-directivas.netlify.app/) <= Click here.
+[https://yirsis-05-rxjs-directivas.netlify.app/](https://yirsis-05-rxjs-directivas.netlify.app/) <= Click here.
 
 ## You can find in this project:
 
